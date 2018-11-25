@@ -5,7 +5,7 @@ Main components:
 4. Searching a page for pdfs to load (saves all information as Exam object)
 
 
-db: columns class text, link, year, term, instructor, type
+db: columns class text, link, ?year?, term, instructor, type
 
 query: searches for in text. Can addend to search by all column names except link.
 
