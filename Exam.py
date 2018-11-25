@@ -1,5 +1,9 @@
 import PyPDF2
+import sqlite3
 import requests
+
+db = sqlite3.Connection("pdfRead")
+db.execute("CREATE TABLE exams(txt, link, term, instructor, type;")
 
 class Exam:
     def __init__(self, instructor, term, exam_type, pdf_exam, pdf_solution, course = "CS61a"):
@@ -15,6 +19,9 @@ class Exam:
         self.pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
         self.num_pages = self.pdfReader.numPages
         self.get_text()
+
+        db.execute("INSERT INTO exams SELECT self.text, self.pdf_exam, self.term, self.instructor, self.exam_type;")
+        db.commit()
 
     def get_text(self):
     	page = 0
@@ -32,3 +39,5 @@ class Exam:
         if not containing_pages:
             return '{} not found'.format(str)
         return 'Page' + containing_pages[:-1]
+
+
