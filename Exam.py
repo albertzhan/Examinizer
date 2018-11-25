@@ -9,20 +9,26 @@ class Exam:
         self.pdf_exam = pdf_exam #these are links to the pdf
         self.pdf_solution = pdf_solution
         self.course = course
-        self.content = ''
+        self.text = []
 
         pdfFileObj = requests.get(self.pdf_exam)
         self.pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
         self.num_pages = self.pdfReader.numPages
         self.get_text()
 
-
     def get_text(self):
-    	self.page1_text = self.pdfReader.getPage(0).extractText()
-    	page = 1
-    	while page < num_pages:
-    		self.content += self.pdfReader.getPage(page).extractText()
+    	page = 0
+    	while page < self.num_pages:
+    		self.text[page] = self.pdfReader.getPage(page).extractText()
     		page += 1
 
     def search_string(self, str):
-    	return str in self.content
+    	page = 0
+        containing_pages = ''
+        while page < self.num_pages:
+            if str in self.text[page]:
+                containing_pages += ' {},'.format(page)
+            page += 1
+        if not containing_pages:
+            return '{} not found'.format(str)
+        return 'Page' + containing_pages[:-1]
