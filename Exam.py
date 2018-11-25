@@ -1,4 +1,5 @@
 import PyPDF2
+import requests
 
 class Exam:
     def __init__(self, instructor, term, exam_type, pdf_exam, pdf_solution, course = "CS61a"):
@@ -10,7 +11,7 @@ class Exam:
         self.course = course
         self.content = ''
 
-        pdfFileObj = open(self.pdf_exam, 'rb')
+        pdfFileObj = requests.get(self.pdf_exam)
         self.pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
         self.num_pages = self.pdfReader.numPages
         self.get_text()
