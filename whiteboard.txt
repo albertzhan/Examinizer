@@ -3,3 +3,10 @@ Main components:
 2. Backend Flask sending json back
 3. Loading into database (SQL)
 4. Searching a page for pdfs to load (saves all information as Exam object)
+
+
+db: columns class text, link, year, term, instructor, type
+
+query: searches for in text. Can addend to search by all column names except link.
+
+Exam: has attributes: course, link, year, term, pdf_sources, instructor. scraper returns a list of these to pass into database
