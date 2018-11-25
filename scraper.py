@@ -1,8 +1,8 @@
 from urllib import request
 from lxml import html
 
-my_url = "https://tbp.berkeley.edu/courses/cs/61a/"
-
+from exam import *
+#this is really only necessary because I am bad at regex =(
 
 def get_pdf_info(url_to_search):
     f = request.urlopen(url_to_search).read().strip()
@@ -11,7 +11,53 @@ def get_pdf_info(url_to_search):
 
     elements = []
     for i in range(len(sbe)):
-        
+        to_use = True
+        if "<tr>" in sbe[i]:
+            ins = ""
+            term = ""
+            exam_type = ""
+            exam = None
+            sols = None
+            while i < len(sbe) and "</tr>" not in sbe[i] :
 
+                if "instructor" in sbe[i]:
+                    start = sbe[i].find(">")+1
+                    end = sbe[i].find("<")
+                    ins = sbe[i][start:end]
+
+                if "Midterm" in sbe[i]:
+                    exam_type = "Midterm " + sbe[i+1][0]
+                elif "Exam" in sbe[i]:
+                    exam_type = "Exam"
+
+                if "Fall" in sbe[i]:
+                    term = "Fall " + sbe[i+1][0: sbe[i+1].find("<")]
+                elif "Spring" in sbe[i]:
+                    term = "Spring " + sbe[i+1][0: sbe[i+1].find("<")]
+                elif "Summer" in sbe[i]:
+                    term = "Summer " + sbe[i+1][0: sbe[i+1].find("<")]
+
+
+                if "download" in sbe[i] and "href" in sbe[i]:
+                    #print(sbe[i],sbe[i+4])
+                    tmp = sbe[i][ sbe[i].find('"')  : sbe[i][sbe[i].find('"')+1:].find('"') + sbe[i].find('"')+1 ]
+                    if "Download" in sbe[i+4]:
+                        to_use = False
+                        break
+                    elif "Exam" in sbe[i+4]:
+                        exam = tmp
+                    elif "Solution" in sbe[i+4]:
+                        sols = tmp
+                        break
+                i += 1
+            #some code here to deal with table rows that are not
+            if to_use:
+                print(ins, term, exam_type, exam, sols)
+                elements.append(Exam(ins, term, exam_type, exam, sols))
+    return elements
+
+
+
+my_url = "https://tbp.berkeley.edu/courses/cs/61a/"
 
 get_pdf_info(my_url)

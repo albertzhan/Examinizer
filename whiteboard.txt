@@ -9,4 +9,4 @@ db: columns class text, link, year, term, instructor, type
 
 query: searches for in text. Can addend to search by all column names except link.
 
-Exam: has attributes: course, link, year, term, pdf_sources, instructor. scraper returns a list of these to pass into database
+Exam: has attributes: course, term, pdf_sources (links to the pdf), instructor. scraper returns a list of these to pass into database
