@@ -4,7 +4,7 @@ from lxml import html
 from exam import *
 #this is really only necessary because I am bad at regex =(
 
-def get_pdf_info(url_to_search):
+def get_info(url_to_search):
     f = request.urlopen(url_to_search).read().strip()
     html_f = f.decode('utf8')
     sbe = html_f.split() #split_by_elem
@@ -16,8 +16,8 @@ def get_pdf_info(url_to_search):
             ins = ""
             term = ""
             exam_type = ""
-            exam = None
-            sols = None
+            exam = "https://tbp.berkeley.edu"
+            sols = "https://tbp.berkeley.edu"
             while i < len(sbe) and "</tr>" not in sbe[i] :
 
                 if "instructor" in sbe[i]:
@@ -40,14 +40,14 @@ def get_pdf_info(url_to_search):
 
                 if "download" in sbe[i] and "href" in sbe[i]:
                     #print(sbe[i],sbe[i+4])
-                    tmp = sbe[i][ sbe[i].find('"')  : sbe[i][sbe[i].find('"')+1:].find('"') + sbe[i].find('"')+1 ]
+                    tmp = sbe[i][ sbe[i].find('"')+1  : sbe[i][sbe[i].find('"')+1:].find('"') + sbe[i].find('"')+1 ]
                     if "Download" in sbe[i+4]:
                         to_use = False
                         break
                     elif "Exam" in sbe[i+4]:
-                        exam = tmp
+                        exam += tmp
                     elif "Solution" in sbe[i+4]:
-                        sols = tmp
+                        sols += tmp
                         break
                 i += 1
             #some code here to deal with table rows that are not
@@ -60,4 +60,4 @@ def get_pdf_info(url_to_search):
 
 my_url = "https://tbp.berkeley.edu/courses/cs/61a/"
 
-get_pdf_info(my_url)
+get_info(my_url)
