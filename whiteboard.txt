@@ -1,0 +1,5 @@
+Main components:
+1. Frontend search
+2. Backend Flask sending json back
+3. Loading into database (SQL)
+4. Searching a page for pdfs to load (saves all information as Exam object)
