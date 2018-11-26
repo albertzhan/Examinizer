@@ -15,21 +15,25 @@ def index():
 
 @app.route('/results')
 def search_results(search):
-    results = []
+    results = null
+    tempdb = sqlite3.Connection('results.db')
     
-    search_string = search.data['search']
+    search_input = search.data['search']
     
-    if search.data['search'] == '':
-        qry = 
-        results = qry.all()
+    if search_input:
+        tempdb.execute("SELECT * FROM exams WHERE 
+        term LIKE (%?%) OR
+        type LIKE (%?%) OR
+        instructor LIKE (%?%);
+        ", search_input)
+        results = tempdb.fetchall()
         
     if not results:
         flash('No Exams Found!')
         return redirect('/')
     
     else:
-        table = Results(results)
-        table.border = True
+        #Display Results
         return render_template('results.html', results=results)
     
 
