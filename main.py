@@ -17,15 +17,18 @@ def index():
 def search_results(search):
     results = null
     tempdb = sqlite3.Connection('results.db')
-    
+    select_input = search.data['select']
     search_input = search.data['search']
     
     if search_input:
         tempdb.execute("SELECT * FROM exams WHERE 
+        class = (%?%) AND
         term LIKE (%?%) OR
+        year LIKE (%?%) OR
         type LIKE (%?%) OR
         instructor LIKE (%?%);
-        ", search_input)
+        ", (select_input, search_input, search_input, search_input, search_input, search_input))
+        
         results = tempdb.fetchall()
         
     if not results:
@@ -36,7 +39,9 @@ def search_results(search):
         #Display Results
         return render_template('results.html', results=results)
     
-
+@app.route('/new_course')
+def new_class():
+    return render_template('new_course.html')
 
 
 if __name__ == '__main__':

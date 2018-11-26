@@ -3,19 +3,23 @@
   <table>
     <thead>
       <tr>
+	<th>Page</th>
 	<th>Link</th>
+	<th>Year</th>
 	<th>Term</th>
 	<th>Instructor</th>
 	<th>Type</th>
       </tr>
     </thead>
     
-  {% for item in data %}
+  {% for item in results %}
   <tr>
     <td>{{item[1]}}</td>
     <td>{{item[2]}}</td>
-    <td>{{item[4]}}</td>
     <td>{{item[3]}}</td>
+    <td>{{item[4]}}</td>
+    <td>{{item[5]}}</td>
+    <td>{{item[6]}}</td>
 
   </tr>
   {% endfor %}
