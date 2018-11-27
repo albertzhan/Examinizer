@@ -1,3 +1,0 @@
-urllib
-lxml
-pyPDF2

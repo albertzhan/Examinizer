@@ -1,7 +1,7 @@
 from flask import Flask, flash, render_template, request, redirect
 from app import app
 from forms import SearchForm
-from tables import Results
+
 from exam import *
 import sqlite3
 
@@ -19,24 +19,21 @@ def search_results(search):
     tempdb = sqlite3.Connection('results.db')
     select_input = search.data['select']
     search_input = search.data['search']
+
+    
     
     if search_input:
-        tempdb.execute("SELECT * FROM exams WHERE 
-        class = (%?%) AND
-        term LIKE (%?%) OR
-        year LIKE (%?%) OR
-        type LIKE (%?%) OR
-        instructor LIKE (%?%);
-        ", (select_input, search_input, search_input, search_input, search_input, search_input))
+        tempdb.execute("SELECT * FROM exams WHERE class = (%?%) AND term LIKE (%?%) OR year LIKE (%?%) OR type LIKE (%?%) OR instructor LIKE (%?%);", (select_input, search_input, search_input, search_input, search_input, search_input))
         
         results = tempdb.fetchall()
+        
         
     if not results:
         flash('No Exams Found!')
         return redirect('/')
     
     else:
-        #Display Results
+        # Display Results
         return render_template('results.html', results=results)
     
 @app.route('/new_course')
