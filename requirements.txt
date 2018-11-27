@@ -1,0 +1,7 @@
+urllib
+lxml
+pyPDF2
+wtforms
+flask
+sqlite3
+jinja2
