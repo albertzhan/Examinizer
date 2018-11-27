@@ -4,9 +4,25 @@ Main components:
 3. Loading into database (SQL)
 4. Searching a page for pdfs to load (saves all information as Exam object)
 
+Frontend has 2 pages:
+  page 1 that is like google.com homepage, allowing to search
+  it also has radio button to select which class you are allowed query from.
+  After you "search", it will display the first up to __ results from db.
+  page 2 is /new_course. allows users to type in a tbp class link, and we will load all the exams into sql db
 
-db: columns class text, link, ?year?, term, instructor, type
+db: columns course text, page, link, term, instructor, type (MT/Exam)
 
 query: searches for in text. Can addend to search by all column names except link.
 
-Exam: has attributes: course, term, pdf_sources (links to the pdf), instructor. scraper returns a list of these to pass into database
+Exam: has attributes: course, term, pdf_sources (links to the pdf), instructor.
+  extract_text method takes the exam and puts it into database
+
+Backend:
+  page 1 gets a get request with the word/phrase they want to look for in past exams
+
+  get "/new_course" will search db and return page has search bar and lists all the loaded exams in the db
+
+Albert task: js
+Andy task: sql
+Irene task: html+css
+Max task: flask 
