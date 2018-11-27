@@ -10,11 +10,7 @@ Frontend has 2 pages:
   After you "search", it will display the first up to __ results from db.
   page 2 is /new_course. allows users to type in a tbp class link, and we will load all the exams into sql db
 
-<<<<<<< HEAD
-db: columns class text, page, link, year, term, instructor, type (MT/Exam)
-=======
-db: columns class text, link, ?year?, term, instructor, type
->>>>>>> 86de73a24b443ae32c4dbf22f938e97df5b679f0
+db: columns course text, page, link, term, instructor, type (MT/Exam)
 
 query: searches for in text. Can addend to search by all column names except link.
 
@@ -25,3 +21,8 @@ Backend:
   page 1 gets a get request with the word/phrase they want to look for in past exams
 
   get "/new_course" will search db and return page has search bar and lists all the loaded exams in the db
+
+Albert task: js
+Andy task: sql
+Irene task: html+css
+Max task: flask 
