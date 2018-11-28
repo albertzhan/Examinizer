@@ -1,6 +1,5 @@
 from flask import Flask, flash, render_template, request, redirect
 from forms import SearchForm
-#from exam import search_string
 from app import app
 import sqlite3
 
@@ -17,16 +16,22 @@ def index():
 @app.route('/results', endpoint='search_results')
 def search_results(search):
     results = []
-    tempdb = sqlite3.Connection('results.db')
+
+    connection = sqlite3.Connection('data.db')
+    cursor = connection.cursor()
+
+    # Retrieve the form input
     select_input = search.data['select']
     search_input = search.data['search']
 
     
-    
+    # Query through importeddata using form input and store in results
     if search_input:
-        tempdb.execute("SELECT * FROM exams WHERE class = (%?%) AND term LIKE (%?%) OR year LIKE (%?%) OR type LIKE (%?%) OR instructor LIKE (%?%);", (select_input, search_input, search_input, search_input, search_input, search_input))
+
+        cursor.execute("SELECT * FROM exams WHERE term LIKE ? OR txt LIKE ? OR instructor LIKE ? OR type LIKE ?;", ['%' + search_input + '%'] * 4)
         
-        results = tempdb.fetchall()
+        results = cursor.fetchall()
+        
         
         
     if not results:
