@@ -3,7 +3,6 @@ from lxml import html
 
 from exam import *
 #this is really only necessary because I am bad at regex =(
-
 def get_info(url_to_search):
     f = request.urlopen(url_to_search).read().strip()
     html_f = f.decode('utf8')
@@ -59,5 +58,7 @@ def get_info(url_to_search):
 
 
 my_url = "https://tbp.berkeley.edu/courses/cs/61a/"
+db = sqlite3.Connection("data.db")
 
-get_info(my_url)
+for k in get_info(my_url):
+    k.store_text(db)
