@@ -15,3 +15,6 @@ class SearchForm(Form):
     print("didn't print")
     select = SelectField('Search Through Class:', choices=choices)
     search = StringField('')
+
+    cursor.close()
+    connection.close()

@@ -1,4 +1,5 @@
 from scraper import *
+from wtforms import Form, StringField, SelectField
 
 from flask import Flask, flash, render_template, request, redirect
 from forms import SearchForm
@@ -10,6 +11,21 @@ import sqlite3
 @app.route('/', methods=['GET', 'POST'], endpoint='index')
 def index():
     search = SearchForm(request.form)
+
+
+    connection = sqlite3.Connection('data.db')
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")
+    courses = cursor.fetchall()
+
+    choices = [(course[0],course[0]) for course in courses]
+    print(choices)
+    print("didn't print")
+    SearchForm.select = SelectField('Search Through Class:', choices=choices)
+    cursor.close()
+    connection.close()
+
     if request.method =='POST':
         return search_results(search)
     print("got a guy looking for exams")
@@ -34,8 +50,8 @@ def search_results(search):
 
         results = cursor.fetchall()
 
-
-
+    cursor.close()
+    connection.close()
     if not results:
         flash('No Exams Found!')
         return redirect('/')
