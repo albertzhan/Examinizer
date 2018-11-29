@@ -12,5 +12,6 @@ class SearchForm(Form):
 
     choices = [(course[0],course[0]) for course in courses]
     print(choices)
+    print("didn't print")
     select = SelectField('Search Through Class:', choices=choices)
     search = StringField('')
