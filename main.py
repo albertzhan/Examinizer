@@ -3,7 +3,9 @@ from scraper import *
 from flask import Flask, flash, render_template, request, redirect
 from forms import SearchForm
 from app import app
+
 import sqlite3
+
 #from urllib import request
 @app.route('/', methods=['GET', 'POST'], endpoint='index')
 def index():
@@ -27,9 +29,8 @@ def search_results(search):
 
     # Query through importeddata using form input and store in results
     if search_input:
-        print("SELECT * FROM ? WHERE term LIKE ? OR txt LIKE ? OR instructor LIKE ? OR type LIKE ?;", [select_input]+['%' + search_input + '%'] * 4)
-
-        cursor.execute("SELECT * FROM ? WHERE term LIKE ? OR txt LIKE ? OR instructor LIKE ? OR type LIKE ?;", [select_input]+['%' + search_input + '%'] * 4)
+        print("SELECT * FROM %s WHERE term LIKE ? OR txt LIKE ? OR instructor LIKE ? OR type LIKE ?;"%(select_input))
+        cursor.execute("SELECT * FROM %s WHERE term LIKE ? OR txt LIKE ? OR instructor LIKE ? OR type LIKE ?;"%(select_input), ['%' + search_input + '%'] * 4)
 
         results = cursor.fetchall()
 
@@ -58,7 +59,7 @@ def add_class(topic,course):
     for k in get_info(my_url):
         k.store_text(db)
     db.close()
-    return render_template('index.html', form=search)
+    return redirect('/')
 
 
 if __name__ == '__main__':
