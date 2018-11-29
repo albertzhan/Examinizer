@@ -48,6 +48,3 @@ class Exam:
                 page += 1
 
         db.commit()
-
-
-
