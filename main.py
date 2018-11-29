@@ -3,7 +3,7 @@ from forms import SearchForm
 from app import app
 import sqlite3
 from urllib import request
-from scraper import *
+
 @app.route('/', methods=['GET', 'POST'], endpoint='index')
 def index():
     search = SearchForm(request.form)
@@ -47,4 +47,4 @@ def new_class():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=80)
