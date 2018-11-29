@@ -10,6 +10,7 @@ def index():
     search = SearchForm(request.form)
     if request.method =='POST':
         return search_results(search)
+    print("got a guy looking for exams")
     return render_template('index.html', form=search)
 
 @app.route('/results', endpoint='search_results')
