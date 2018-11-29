@@ -51,7 +51,7 @@ def get_info(url_to_search):
                 i += 1
             #some code here to deal with table rows that are not
             if to_use:
-                print(ins, term, exam_type, exam, sols)
+                #print(ins, term, exam_type, exam, sols)
                 elements.append(Exam(ins, term, exam_type, exam, sols))
     return elements
 

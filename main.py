@@ -2,7 +2,7 @@ from flask import Flask, flash, render_template, request, redirect
 from forms import SearchForm
 from app import app
 import sqlite3
-
+from urllib import request
 from scraper import *
 
 @app.route('/', methods=['GET', 'POST'], endpoint='index')
