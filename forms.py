@@ -1,5 +1,5 @@
 from wtforms import Form, StringField, SelectField
-
+import sqlite3
 
 
 
@@ -7,9 +7,9 @@ class SearchForm(Form):
     connection = sqlite3.Connection('data.db')
     cursor = connection.cursor()
 
-    cursor.execute(".tables")
-    tables = cursor.fetchall()
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")
+    courses = cursor.fetchall()
     
-    choices = [('cs61a', 'cs61a'), ('cs70', 'cs70')]
+    choices = [(course, course) for course in courses]
     select = SelectField('Search Through Class:', choices=choices)
     search = StringField('')
