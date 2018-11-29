@@ -52,13 +52,17 @@ def new_class():
 def add_class(topic,course):
     my_url = "https://tbp.berkeley.edu/courses/"+topic+"/"+course+"/"
     print(my_url)
-    db = sqlite3.Connection("data.db")
-    print("CREATE TABLE %s (txt, page, link, exam_or_sol, term, instructor, type);"%(topic+course))
-    db.execute("CREATE TABLE %s (txt, page, link, exam_or_sol, term, instructor, type);"%(topic+course))
 
-    for k in get_info(my_url):
-        k.store_text(db)
-    db.close()
+    try:
+        db = sqlite3.Connection("data.db")
+        print("CREATE TABLE %s (txt, page, link, exam_or_sol, term, instructor, type);"%(topic+course))
+        db.execute("CREATE TABLE %s (txt, page, link, exam_or_sol, term, instructor, type);"%(topic+course))
+
+        for k in get_info(my_url):
+            k.store_text(db)
+        db.close()
+    except Exception:
+        return "that course is already taken"
     return redirect('/')
 
 

@@ -10,6 +10,7 @@ class SearchForm(Form):
     cursor.execute("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")
     courses = cursor.fetchall()
 
-    choices = [(course.strip("").split(","), course.strip("").split(",")) for course in courses]
+    choices = [(course[0],course[0]) for course in courses]
+    print(choices)
     select = SelectField('Search Through Class:', choices=choices)
     search = StringField('')
