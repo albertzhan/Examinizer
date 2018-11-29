@@ -35,7 +35,7 @@ class Exam:
             exam_num_pages = pdfExamReader.getNumPages()
             while page < exam_num_pages:
                 exam_txt = pdfExamReader.getPage(page).extractText()
-                db.execute("INSERT INTO exams VALUES (?, ?, ?, ?, ?, ?, ?, ?)", (exam_txt, page, self.pdf_exam, 'exam', self.term, self.instructor, self.exam_type, self.course))
+                db.execute("INSERT INTO %s VALUES (?, ?, ?, ?, ?, ?, ?)"%(self.course), (exam_txt, page, self.pdf_exam, 'exam', self.term, self.instructor, self.exam_type))
                 page += 1
 
         if self.pdf_solution != "https://tbp.berkeley.edu":
@@ -44,7 +44,7 @@ class Exam:
             sol_num_pages = pdfSolReader.getNumPages()
             while page < sol_num_pages:
                 sol_txt = pdfSolReader.getPage(page).extractText()
-                db.execute("INSERT INTO exams VALUES (?, ?, ?, ?, ?, ?, ?, ?)", (sol_txt, page, self.pdf_exam, 'sol', self.term, self.instructor, self.exam_type, self.course))
+                db.execute("INSERT INTO %s VALUES (?, ?, ?, ?, ?, ?, ?)"%(self.course), (sol_txt, page, self.pdf_exam, 'exam', self.term, self.instructor, self.exam_type))
                 page += 1
 
         db.commit()
