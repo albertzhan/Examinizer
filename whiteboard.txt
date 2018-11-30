@@ -25,4 +25,4 @@ Backend:
 Albert task: js
 Andy task: sql
 Irene task: html+css
-Max task: flask 
+Max task: flask

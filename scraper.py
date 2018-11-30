@@ -54,12 +54,3 @@ def get_info(url_to_search):
                 print(ins, term, exam_type, exam, sols)
                 elements.append(Exam(ins, term, exam_type, exam, sols))
     return elements
-
-
-
-my_url = "https://tbp.berkeley.edu/courses/cs/61a/"
-db = sqlite3.Connection("data.db")
-db.execute("CREATE TABLE exams(txt, page, exam_or_sol, link, term, instructor, type, course);")
-
-for k in get_info(my_url):
-    k.store_text(db)
