@@ -55,7 +55,7 @@ body {
   float: middle;
   padding: 6px 10px;
   margin-top: 8px;
-  margin-right: 8px;
+  margin-right: 16px;
   background: #ddd;
   font-size: 30px;
   border: none;
@@ -128,12 +128,12 @@ p  {
   <div class="search-container">
     {% from "_formhelpers.html" import render_field %}
 	<form method=post>
-	  <dl>
+	  
 	    <div class="dropdown">{{ render_field(form.select) }}</div>
 	    {{ render_field(form.search, id='nameField', placeholder="Search...") }}
 	  
 	    <button type="submit"><i class="fa fa-search"></i></button>
-	    </dl>
+	  
 	</form>
   </div>
   <!---

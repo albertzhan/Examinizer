@@ -57,7 +57,7 @@ def search_results(search):
 
     else:
         # Display Results
-        return render_template('results.html', results=results)
+        return render_template('results.html', results=results, searched=search_input)
 
 
 @app.route('/new_course/<topic>/<course>')

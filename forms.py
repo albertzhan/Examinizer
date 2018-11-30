@@ -13,7 +13,7 @@ class SearchForm(Form):
     choices = [(course[0],course[0]) for course in courses]
     print(choices)
     print("didn't print")
-    select = SelectField(choices=choices)
+    select = SelectField('', choices=choices)
     search = StringField('')
 
     cursor.close()
