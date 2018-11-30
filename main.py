@@ -21,7 +21,7 @@ def index():
 
     choices = [(course[0],course[0]) for course in courses]
     print(choices)
-    SearchForm.select = SelectField(choices=choices)
+    SearchForm.select = SelectField('',choices=choices)
     cursor.close()
     connection.close()
 

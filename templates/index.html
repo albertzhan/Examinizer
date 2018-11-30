@@ -113,18 +113,10 @@ p  {
 </head>
 <body>
  
-  <script type="text/javascript">
-            function getNewCourse(){
-            var Subj = prompt("Enter the Course Subject", "e.g EE or CS");
-	    var Numb = prompt("Enter the Course Number", "e.g. 16a or 61a")
-	    
-            window.location.href="new_course/{0}/{1}".format(Subj, Numb);
-            }
-      </script>
 
   <div class="topnav">
     
-  <a href="/" onclick="getNewCourse();">+ Class</a>
+  <a onclick="getNewCourse()">+ Class</a>
   <div class="search-container">
     {% from "_formhelpers.html" import render_field %}
 	<form method=post>
@@ -165,7 +157,14 @@ function active_search_function() {
     }
 
 var SearchButton = document.getElementById('SearchButton');
-SearchButton.addEventListener('click', getUserName, false);
+SearchButton.addEventListener('click', getUserName, false)
+
+function getNewCourse(){
+var Subj = prompt("Enter the Course Subject", "e.g EE or CS");
+var Numb = prompt("Enter the Course Number", "e.g. 16a or 61a")
+
+location.href="new_course/{0}/{1}".format(Subj, Numb);
+}
 </script>
 
 
