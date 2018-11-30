@@ -21,14 +21,12 @@ def index():
 
     choices = [(course[0],course[0]) for course in courses]
     print(choices)
-    print("didn't print")
     SearchForm.select = SelectField('Search Through Class:', choices=choices)
     cursor.close()
     connection.close()
 
     if request.method =='POST':
         return search_results(search)
-    print("got a guy looking for exams")
     return render_template('index.html', form=search)
 
 @app.route('/results', endpoint='search_results')
@@ -52,7 +50,7 @@ def search_results(search):
 
     cursor.close()
     connection.close()
-    
+
     if not results:
         flash('No Exams Found!')
         return redirect('/')
@@ -70,17 +68,28 @@ def add_class(topic,course):
     my_url = "https://tbp.berkeley.edu/courses/"+topic+"/"+course+"/"
     print(my_url)
 
-    try:
+    connection = sqlite3.Connection('data.db')
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")
+    courses = cursor.fetchall()
+
+    choices = [course[0] for course in courses]
+    if topic+course in choices:
+        return "You already have that class"
+    else:
         db = sqlite3.Connection("data.db")
         print("CREATE TABLE %s (txt, page, link, exam_or_sol, term, instructor, type);"%(topic+course))
         db.execute("CREATE TABLE %s (txt, page, link, exam_or_sol, term, instructor, type);"%(topic+course))
 
-        for k in get_info(my_url):
+        exams = get_info(my_url)
+        for k in exams:
             k.store_text(db)
+        for k in exams:
+            k.remove_pdf()
         db.close()
-    except Exception:
-        return "that course is already taken"
-    return redirect('/')
+
+        return redirect('/')
 
 
 if __name__ == '__main__':

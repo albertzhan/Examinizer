@@ -4,6 +4,7 @@ from lxml import html
 from exam import *
 #this is really only necessary because I am bad at regex =(
 def get_info(url_to_search):
+    topic_course = ''.join(url_to_search.strip('/').split('/')[-2:])
     f = request.urlopen(url_to_search).read().strip()
     html_f = f.decode('utf8')
     sbe = html_f.split() #split_by_elem
@@ -52,5 +53,5 @@ def get_info(url_to_search):
             #some code here to deal with table rows that are not
             if to_use:
                 print(ins, term, exam_type, exam, sols)
-                elements.append(Exam(ins, term, exam_type, exam, sols))
+                elements.append(Exam(ins, term, exam_type, exam, sols,topic_course))
     return elements
