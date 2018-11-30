@@ -5,17 +5,20 @@
 <title>Examinizer</title>
 </head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <style>
 * {box-sizing: border-box;
-	
-}
 
+}
+#course_dropdown {
+	width: 40vw;
+}
 body {
   margin: 0;
   font-family: Cinzel, serif;
   background-color: #ccccff;
   font-size: 100%;
-  
+
 }
 
 .topnav {
@@ -69,7 +72,7 @@ body {
 @media screen and (max-width: 600px) {
   .topnav .search-container {
     float: none;
-    
+
   }
   .topnav a, .topnav input[type=text], .topnav .search-container button {
     float: none;
@@ -80,7 +83,7 @@ body {
     padding: 14px;
   }
   .topnav input[type=text] {
-    border: 1px solid #ccc;  
+    border: 1px solid #ccc;
   }
 }
 
@@ -88,9 +91,9 @@ h2 {
     color: black;
     text-align: center;
     font-size: 4em;
-    
+
  }
- 
+
 p  {
 	text-align: center;
 	font-size: 1.875em;
@@ -112,20 +115,20 @@ p  {
 </style>
 </head>
 <body>
- 
+
 
   <div class="topnav">
-    
+
   <a onclick="getNewCourse()">+ Class</a>
   <div class="search-container">
     {% from "_formhelpers.html" import render_field %}
 	<form method=post>
-	  
-	    <div class="dropdown">{{ render_field(form.select) }}</div>
+
+	    <div class="dropdown">{{ render_field(form.select,class='form-control',id='course_dropdown') }}</div>
 	    {{ render_field(form.search, id='nameField', placeholder="Search...") }}
-	  
+
 	    <button type="submit"><i class="fa fa-search"></i></button>
-	  
+
 	</form>
   </div>
   <!---
@@ -147,13 +150,13 @@ p  {
 
 <script>
 function active_search_function() {
-    
+
 }
  function getUserName() {
     var nameField = document.getElementById('nameField').value;
     var result = document.getElementById('result');
     return result;
-    
+
     }
 
 var SearchButton = document.getElementById('SearchButton');
@@ -178,4 +181,3 @@ location.href="new_course/{0}/{1}".format(Subj, Numb);
 </body>
 </html>
 </html>
-
