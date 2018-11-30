@@ -52,6 +52,7 @@ def search_results(search):
 
     cursor.close()
     connection.close()
+    
     if not results:
         flash('No Exams Found!')
         return redirect('/')
@@ -83,4 +84,4 @@ def add_class(topic,course):
 
 
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0', port=5000)
+    app.run(debug=True,host='0.0.0.0', port=80)
