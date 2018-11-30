@@ -8,7 +8,7 @@ from app import app
 import sqlite3
 
 #from urllib import request
-@app.route('/', methods=['GET', 'POST'], endpoint='index')
+@app.route('/', methods=['GET', 'POST'])
 def index():
     search = SearchForm(request.form)
 
@@ -59,9 +59,6 @@ def search_results(search):
         # Display Results
         return render_template('results.html', results=results)
 
-@app.route('/new_course', endpoint='new_class')
-def new_class():
-    return render_template('new_course.html')
 
 @app.route('/new_course/<topic>/<course>')
 def add_class(topic,course):

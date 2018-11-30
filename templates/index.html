@@ -94,16 +94,48 @@ h2 {
 p  {
 	text-align: center;
 	font-size: 1.875em;
- 
+
+.topnav .search-container .dropdown {
+    position: relative;
+    display: inline-block;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+
+
 </style>
 </head>
 <body>
  
+  <script type="text/javascript">
+            function getNewCourse(){
+            var Subj = prompt("Enter the Course Subject", "e.g EE or CS");
+	    var Numb = prompt("Enter the Course Number", "e.g. 16a or 61a")
+	    
+            window.location.href="new_course/{0}/{1}".format(Subj, Numb);
+            }
+      </script>
 
-
-<div class="topnav">
-	<a href="addclass">+ Class</a>
-  
+  <div class="topnav">
+    
+  <a href="/" onclick="getNewCourse();">+ Class</a>
+  <div class="search-container">
+    {% from "_formhelpers.html" import render_field %}
+	<form method=post>
+	  <dl>
+	    <div class="dropdown">{{ render_field(form.select) }}</div>
+	    {{ render_field(form.search, id='nameField', placeholder="Search...") }}
+	  </dl>
+	    <button type="submit"><i class="fa fa-search"></i></button>
+	</form>
+  </div>
+  <!---
   <div class="search-container">
     <form action="/action_page.php">
       <input type="text" id='nameField' placeholder="Search..." onkeyup="active_search_function()" >
@@ -111,6 +143,7 @@ p  {
       ></i></button>
     </form>
   </div>
+  -//-->
 </div>
 
 <div style="padding-left:20px">
