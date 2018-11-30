@@ -52,8 +52,7 @@ def search_results(search):
     connection.close()
 
     if not results:
-        flash('No Exams Found!')
-        return redirect('/')
+        return render_template('no_results.html', searched=search_input)
 
     else:
         # Display Results
