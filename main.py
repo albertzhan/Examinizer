@@ -73,7 +73,8 @@ def add_class(topic,course):
 
     choices = [course[0] for course in courses]
     if topic+course in choices:
-        return "You already have that class"
+        flash("You already have that class")
+        return redirect('/')
     else:
         db = sqlite3.Connection("data.db")
         print("CREATE TABLE %s (txt, page, link, exam_or_sol, term, instructor, type);"%(topic+course))
