@@ -52,7 +52,7 @@ def search_results(search):
     connection.close()
 
     if not results:
-        return render_template('no_results.html', searched=search_input)
+        return render_template('no_result.html', searched=search_input)
 
     else:
         # Display Results
